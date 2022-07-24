@@ -1,3 +1,6 @@
+const cors = require("cors");
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
@@ -5,6 +8,12 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 
 const app = express();
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+}
+app.use(cors(corsOptions));
 
 app.use(logger('dev'));
 app.use(express.json());
