@@ -1,25 +1,21 @@
-const cors = require("cors");
 require('dotenv').config();
+const express = require('express');
 
 const createError = require('http-errors');
-const express = require('express');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user');
+const authRouter = require('./routes/auth');
 
 const app = express();
-
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true
-}
-app.use(cors(corsOptions));
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', indexRouter);
+app.use('/api/v1/auth', authRouter);
+
+app.use('/api/v1/users', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
